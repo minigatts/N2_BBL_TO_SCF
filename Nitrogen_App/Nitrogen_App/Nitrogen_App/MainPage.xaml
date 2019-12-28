@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Nitrogen_App.MainPage">
+
+    <StackLayout Margin="10,35,10,10" Spacing="50">
+        
+        
+        
+        <Label Text="This is a test Nitrogen calculator." 
+           HorizontalOptions="Center"           
+               />
+
+        <Editor x:Name="Editor"
+                Placeholder="What is the temperature?"
+                HeightRequest="100"/>
+
+        <Grid>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />                
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column ="0"
+                Text= "Calculate"
+                    Clicked = "CalcButtonClicked" />
+            <Button Grid.Column ="1"
+                    Text= "Clear"
+                    Clicked = "ClearButtonClicked" />                    
+        </Grid>
+
+        <Label Text="Nitrogen info goes here"
+               HorizontalOptions="Center" />
+
+        <Label Text="1 SCF N2 = 0.07245 lbs  at 70°F and 1 ATM." FontAttributes="Italic"/>
+        
+
+    </StackLayout>
+
+</ContentPage>
