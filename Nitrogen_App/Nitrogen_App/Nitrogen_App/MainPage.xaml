@@ -6,38 +6,70 @@
              mc:Ignorable="d"
              x:Class="Nitrogen_App.MainPage">
 
-    <StackLayout Margin="10,35,10,10" Spacing="50">
+    <StackLayout Margin="10,10,10,10" Spacing="25" >
+
         
         
+        <Label Text="Nitrogen SCF/BBL Estimator" 
+           HorizontalOptions="Center"               
+           HeightRequest="30"
+           FontSize="Large"
+               FontAttributes="Bold"
+               />
         
-        <Label Text="This is a test Nitrogen calculator." 
-           HorizontalOptions="Center"           
+        <Label Text="by Chantz Drake" 
+           HorizontalOptions="Center"    
+           VerticalOptions="Start"
+           HeightRequest="70"
+           
+               FontAttributes="Bold"
                />
 
-        <Editor x:Name="Editor"
-                Placeholder="What is the temperature?"
-                HeightRequest="100"/>
+        <Label Text="Temperature (0 - 250 °F)" 
+           HorizontalOptions="Start"             
+               />
 
-        <Grid>
-            
+        <Entry x:Name="Temperature" 
+                Placeholder="What is the temperature?"
+                HeightRequest="50"
+                Keyboard="Numeric"/>
+
+        <Label Text="Gauge Pressure  ( 0 - 15,000 psig )" 
+           HorizontalOptions="Start"           
+               />
+
+        <Entry x:Name="Gauge_Pressure"
+                Placeholder="What is the gauge pressure?"
+                HeightRequest="50"
+                Keyboard="Numeric"
+                />
+
+        <Grid>            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />                
             </Grid.ColumnDefinitions>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
             <Button Grid.Column ="0"
-                Text= "Calculate"
+                Text= "Calculate"                    
                     Clicked = "CalcButtonClicked" />
+            
             <Button Grid.Column ="1"
                     Text= "Clear"
                     Clicked = "ClearButtonClicked" />                    
         </Grid>
 
-        <Label Text="Nitrogen info goes here"
-               HorizontalOptions="Center" />
-
-        <Label Text="1 SCF N2 = 0.07245 lbs  at 70°F and 1 ATM." FontAttributes="Italic"/>
-        
+        <Label x:Name="Answer" 
+               Text="No calculation request made yet."
+               FontSize="Large"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" 
+               VerticalOptions="CenterAndExpand"/>     
 
     </StackLayout>
 
