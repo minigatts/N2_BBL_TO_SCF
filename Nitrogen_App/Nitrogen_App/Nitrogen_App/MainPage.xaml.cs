@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using LumenWorks.Framework.IO.Csv;
 using System.Data;
@@ -38,14 +33,14 @@ namespace Nitrogen_App
             }
             catch
             {
-                if(Double.Parse(Temperature.Text) > 250)
+                if(Double.Parse(Temperature.Text) > 400)
                 {
-                    Answer.Text = "Error : T > 250°F.";
+                    Answer.Text = "Error : T > 400°F.";
                 }
                 else if (Double.Parse(Gauge_Pressure.Text) > 15000)
                 {
                     Answer.Text = "Error : P > 15,000 psi.";
-                }
+                }                
                 else
                 {
                     Answer.Text = "Invalid input data.";
@@ -93,28 +88,37 @@ namespace Nitrogen_App
             a_psig = (int)Math.Round(( a_psig + 14.6959) / 100) * 100;
             // Table is in PSIA so add 1 ATM (14.6959 PSI) to all gauge pressure readings (PSIG).
 
-            int col;
-            int row;
-            int s_bbl;
+            if (a_psig < 50)
+            {
+                //Progam rouunds down below 50 PSI and a gas with 0 PSI occupies 0 volume,  so we discard that answer.
+                Answer.Text = "Error : Pressures of 35 PSI and below are not supported.";
+                return;
+            }
+            else
+            {
+                int col;
+                int row;
+                int s_bbl;
 
-            col = (int) a_temp / 10;
-            Debug.Print("Column " + col);
-            row = (int)a_psig / 100;
-            Debug.Print("Row " + row);
+                col = (int)a_temp / 10;
+                Debug.Print("Column " + col);
+                row = (int)a_psig / 100;
+                Debug.Print("Row " + row);
 
-            // Answer is in scf / bbl
+                // Answer is in scf / bbl
 
-            s_bbl = int.Parse( ValueTable.Rows[row][col].ToString());
+                s_bbl = int.Parse(ValueTable.Rows[row][col].ToString());
 
-            String result = String.Format("Estimate {0:F1} SCF / BBL", s_bbl);
+                String result = String.Format("Estimate {0:F1} SCF / BBL", s_bbl);
 
-            Answer.Text = result.ToString();
-
-
+                Answer.Text = result.ToString();
+            }
         }
 
         void SCFM_Calc(double a_temp, double a_psig) 
         {
+            // This one isn't used as I don't have good numbers for compressibility.
+            
             // Calculation based on gas law
             // V2 = V1 * (P1 / P2) * (T2 / T1) * (Z2 / Z1)
             //      T: Temperature in Rankine  ( Ideal gas law requires absolute scale )

@@ -25,7 +25,7 @@
                FontAttributes="Bold"
                />
 
-        <Label Text="Temperature (0 - 250 °F)" 
+        <Label Text="Temperature (0 - 400 °F)" 
            HorizontalOptions="Start"             
                />
 
