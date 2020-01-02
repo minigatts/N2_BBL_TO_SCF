@@ -55,8 +55,8 @@ namespace Nitrogen_App
             Gauge_Pressure.Text = "";
             Answer.Text = "";
         }        
-
-        void ReadCsv()
+                
+        void ReadCsv()  // Library for reating CSV files,  just getting Nitrogen data into array.
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "Nitrogen_App.ValueTable.csv";
@@ -86,6 +86,7 @@ namespace Nitrogen_App
             //Round temperature to nearest 10, and pressure to nearest 100.
             a_temp = (int)Math.Round(a_temp / 10) * 10;
             a_psig = (int)Math.Round(( a_psig + 14.6959) / 100) * 100;
+
             // Table is in PSIA so add 1 ATM (14.6959 PSI) to all gauge pressure readings (PSIG).
 
             if (a_psig < 50)
@@ -100,12 +101,12 @@ namespace Nitrogen_App
                 int row;
                 int s_bbl;
 
-                col = (int)a_temp / 10;
+                col = (int)a_temp / 10;    // Column # should be temperature / 10
                 Debug.Print("Column " + col);
-                row = (int)a_psig / 100;
+                row = (int)a_psig / 100;   // Row # should be temperature / 100
                 Debug.Print("Row " + row);
 
-                // Answer is in scf / bbl
+                // Answer is in scf / bbl,  conversion already done in the table.  No calculations needed.
 
                 s_bbl = int.Parse(ValueTable.Rows[row][col].ToString());
 
